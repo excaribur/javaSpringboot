@@ -6,6 +6,11 @@ public class UserException extends BaseException {
         super("user." + code);
     }
 
+    // user.not.Found
+    public static UserException notFound() {
+        return new UserException("user.not.found");
+    }
+
     // user.register.request.null
     public static UserException requestNull() {
         return new UserException("register.request.null");

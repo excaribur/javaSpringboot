@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode
 @Data
@@ -27,5 +26,8 @@ public class User extends BaseEntity {
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     private Social social;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Address> addresses;
 
 }

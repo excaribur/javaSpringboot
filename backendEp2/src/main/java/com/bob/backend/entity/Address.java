@@ -1,34 +1,28 @@
 package com.bob.backend.entity;
 
-import com.bob.backend.entity.BaseEntity;
-import com.bob.backend.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Entity(name = "m_social")
-public class Social extends BaseEntity {
+@Entity(name = "m_address")
+public class Address extends BaseEntity {
 
     @Column(length = 120)
-    private String facebook;
+    private String line1;
 
     @Column(length = 120)
-    private String Line;
+    private String line2;
 
     @Column(length = 120)
-    private String instagram;
+    private String zipcode;
 
-
-    @Column(length = 120)
-    private String tiktok;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "m_user_id", nullable = false)
     private User user;
 }

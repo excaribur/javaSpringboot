@@ -1,8 +1,10 @@
 package com.bob.backend;
 
+import com.bob.backend.entity.Social;
 import com.bob.backend.entity.User;
 import com.bob.backend.exception.BaseException;
 import com.bob.backend.exception.UserException;
+import com.bob.backend.service.SocialService;
 import com.bob.backend.service.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ class TestUserService {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private SocialService socialService;
 
 	@Order(1)
 	@Test
@@ -56,6 +61,31 @@ class TestUserService {
 
 	@Order(3)
 	@Test
+	void testCreateSocial() throws UserException {
+		Optional<User> opt = userService.findByEmail(TestCreateData.email);
+		Assertions.assertTrue((opt.isPresent()));
+
+		User user = opt.get();
+
+		Social social = user.getSocial();
+		Assertions.assertNull(social);
+
+		social = socialService.create(
+				user,
+				SocialTestCreateData.facebook,
+				SocialTestCreateData.line,
+				SocialTestCreateData.instagram,
+				SocialTestCreateData.tiktok
+		);
+
+		Assertions.assertNotNull(social);
+		Assertions.assertEquals(SocialTestCreateData.facebook, social.getFacebook());
+
+	}
+
+
+	@Order(9)
+	@Test
 	void testDelete() {
 		Optional<User> opt = userService.findByEmail(TestCreateData.email);
 		Assertions.assertTrue(opt.isPresent());
@@ -74,6 +104,19 @@ class TestUserService {
 
 		String name = "Jirayut Phonyiam";
 	}
+
+	interface SocialTestCreateData {
+
+		String facebook = "iambob";
+
+		String line = "";
+
+		String instagram = "";
+
+		String tiktok = "";
+
+	}
+
 
 	interface TestUpdateData {
 

@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @EqualsAndHashCode
 @Data
@@ -24,5 +25,7 @@ public class User extends BaseEntity {
 
     private String civilId;
 
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Social social;
 
 }

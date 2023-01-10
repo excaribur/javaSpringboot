@@ -1,12 +1,10 @@
 package com.bob.backend.api;
 
 import com.bob.backend.business.UserBusiness;
-import com.bob.backend.entity.User;
 import com.bob.backend.exception.BaseException;
 import com.bob.backend.model.MLoginRequest;
 import com.bob.backend.model.MRegisterRequest;
 import com.bob.backend.model.MRegisterResponse;
-import com.bob.backend.model.TestResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +39,13 @@ public class UserApi {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping
+    @GetMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken() throws BaseException {
+        String response = business.refreshToken();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/upload-profile")
     public ResponseEntity<String> uploadProfilePicture(@RequestPart MultipartFile file) throws BaseException{
         String response = business.uploadProfilePicture(file);
         return ResponseEntity.ok(response);
